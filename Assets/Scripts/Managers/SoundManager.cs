@@ -12,9 +12,6 @@ public class SoundManager : SingletonBase<SoundManager>
     [SerializeField] private AudioDataSO _sfxAudioData;
     [HorizontalLine(color: EColor.Gray)]
 
-    [Header("Ambience")]
-    [SerializeField] private GameObject _ambienceAudioPrefab;
-
     [Header("Music")]
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private AudioDataSO _musicAudioData;
@@ -74,17 +71,6 @@ public class SoundManager : SingletonBase<SoundManager>
     public void Play3DAudio(AudioClip clip, AudioSource audioSource)
     {
         audioSource.PlayOneShot(clip);
-    }
-
-    public void PlayAmbience(AudioClip clip, float distanceFromPlayer)
-    {
-        var vector2 = Random.insideUnitCircle.normalized * distanceFromPlayer;
-        var prefab = Instantiate(_ambienceAudioPrefab, _player.transform.position + new Vector3(vector2.x, 0, vector2.y), Quaternion.identity);
-        var source = prefab.GetComponent<AudioSource>();
-        source.clip = clip;
-        source.maxDistance = distanceFromPlayer * 2;
-        source.Play();
-        Destroy(prefab, clip.length + 1);
     }
 
     public void PlayAudioLoop(string audioName, bool startSequencing = false)
