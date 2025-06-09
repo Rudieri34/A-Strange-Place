@@ -144,7 +144,7 @@ public class NPC_MovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_dialogController._isShowingDialog)
+        if (_dialogController.IsShowingDialog)
             _currentBehaviour = NPC_Behaviours.Idle;
         else if (_currentBehaviour != _targetBehaviour)
         {
@@ -155,7 +155,7 @@ public class NPC_MovementController : MonoBehaviour
 
         _animator.SetBool("Chating", !IsMoving() 
             && (_alwaysChat || 
-            (_chatOnDialogue && _dialogController._isShowingDialog)));
+            (_chatOnDialogue && _dialogController.IsShowingDialog)));
 
         SetupBehaviours();
     }

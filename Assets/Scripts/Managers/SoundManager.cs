@@ -125,9 +125,7 @@ public class SoundManager : SingletonBase<SoundManager>
 public enum AudioType
 {
     Music,
-    Ambience,
-    SFX,
-    Dialogue
+    SFX
 }
 
 [System.Serializable]

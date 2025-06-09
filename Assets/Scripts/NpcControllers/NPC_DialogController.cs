@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class NPC_DialogController : MonoBehaviour
 {
-    public string[] dialogues;
-    public int a = 0;
+    [SerializeField] private string[] dialogues;
+    [SerializeField] private int a = 0;
 
-    public bool _isShowingDialog;
-    public bool _isShowingMessage;
+    public bool IsShowingDialog;
+    public bool IsShowingMessage;
 
     private Transform _player;
 
@@ -29,46 +29,34 @@ public class NPC_DialogController : MonoBehaviour
             SetDialog();
         }
 
-        if (!IsObjectOnScreen() )
+        if (!IsObjectNearby())
         {
-            if (_isShowingMessage)
+            if (IsShowingMessage)
             {
                 ScreenManager.Instance.HideMessageText();
-                _isShowingMessage = false;
+                IsShowingMessage = false;
             }
-            if (_isShowingDialog)
+            if (IsShowingDialog)
             {
                 ScreenManager.Instance.HideDialogText();
                 a = 0;
-                _isShowingDialog = false;
+                IsShowingDialog = false;
             }
         }
         else if (!ScreenManager.Instance.isShowingMessage)
         {
             ScreenManager.Instance.ShowMessageText("'E'<br>Talk");
-            _isShowingMessage = true;
+            IsShowingMessage = true;
         }
 
     }
 
-    private bool IsObjectOnScreen()
+    private bool IsObjectNearby()
     {
-        // Calculate the middle of the screen
-        Vector3 middleScreenPoint = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        // Convert the screen point to a ray
-        Ray ray = Camera.main.ScreenPointToRay(middleScreenPoint);
-        RaycastHit hit;
 
-        // Perform the raycast
-        if (Physics.Raycast(ray, out hit, 3))
+        if (Vector3.Distance(_player.transform.position, transform.position) < 3)
         {
-            // Check if the hit object is valid
-            if (hit.collider != null && hit.collider.gameObject == gameObject)
-            {
-                return true;
-            }
-            return false;
-
+            return true;
         }
         else
         {
@@ -80,19 +68,19 @@ public class NPC_DialogController : MonoBehaviour
     void SetDialog()
     {
         transform.LookAt(_player);
-        if (IsObjectOnScreen())
+        if (IsObjectNearby())
         {
             if (a >= dialogues.Length)
             {
                 ScreenManager.Instance.HideDialogText();
                 a = -1;
-                _isShowingDialog = false;
+                IsShowingDialog = false;
             }
 
             if (a >= 0)
             {
-                ScreenManager.Instance.ShowDialogText(dialogues[a]);
-                _isShowingDialog = true;
+                _= ScreenManager.Instance.ShowDialogText(dialogues[a]);
+                IsShowingDialog = true;
             }
 
             a++;

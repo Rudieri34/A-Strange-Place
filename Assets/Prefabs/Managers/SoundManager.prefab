@@ -49,10 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 1
   sfxSource: {fileID: 4038050660498479382}
-  _sfxAudioData: {fileID: 11400000, guid: dc482a81e3f32d949af0ea9fac17ec41, type: 2}
-  _ambienceAudioPrefab: {fileID: 1590567928682041031, guid: 8416947905f24df4eb854ef75607f77c, type: 3}
+  _sfxAudioData: {fileID: 11400000, guid: cb4848f068a16b34c92ef03190627b5b, type: 2}
   _musicSource: {fileID: 7425063034030145288}
-  _musicAudioData: {fileID: 11400000, guid: e69f285b04ca9de49bbe0a40340fec6e, type: 2}
+  _musicAudioData: {fileID: 11400000, guid: 3f36ccfdba8621744aced65763dd673f, type: 2}
 --- !u!82 &4038050659114938455
 AudioSource:
   m_ObjectHideFlags: 0

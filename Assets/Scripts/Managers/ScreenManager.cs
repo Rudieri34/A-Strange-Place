@@ -32,14 +32,7 @@ public class ScreenManager : SingletonBase<ScreenManager>
     [SerializeField] private GameObject _messageScreen;
     [SerializeField] private TMP_Text _messageText;
 
-    [Header("Notes Screen")]
-    [SerializeField] private GameObject _noteParentObject;
-    [SerializeField] private TextMeshProUGUI _noteTitleTMP;
-    [SerializeField] private TextMeshProUGUI _noteContextTMP;
-    [SerializeField] private TextMeshProUGUI _notePagesTMP;
-    [SerializeField] private int _currentNotePage;
-    [SerializeField] private int _maxNotePage;
-
+  
     [Header("Fade")]
     [SerializeField] private Image _fade;
 
@@ -197,51 +190,6 @@ public class ScreenManager : SingletonBase<ScreenManager>
         isShowingMessage = false;
     }
     #endregion
-
-    #region Notes
-    public void ShowNewNote(string noteTitle, string noteContent)
-    {
-        GameManager.Instance.IsCursorVisible = true;
-        GameManager.Instance.IsPlayerInputEnabled = false;
-        GameManager.Instance.IsPauseAllowed = false;
-        ShowPopup("Notes", hasOpeningAnimation: true, popupGameObject: _noteParentObject);
-        _noteTitleTMP.text = noteTitle;
-        _noteContextTMP.text = noteContent;
-        _maxNotePage = Mathf.Max(1, _noteContextTMP.textInfo.pageCount);
-        _currentNotePage = 1;
-        _noteContextTMP.pageToDisplay = _currentNotePage;
-        _notePagesTMP.text = $"{_currentNotePage}/{_maxNotePage}";
-        _notePagesTMP.ForceMeshUpdate();
-        _noteContextTMP.ForceMeshUpdate();
-    }
-
-    public void NextNotePage()
-    {
-        if (_currentNotePage == _maxNotePage)
-            return;
-        _currentNotePage++;
-        _noteContextTMP.pageToDisplay = _currentNotePage;
-        _notePagesTMP.text = $"{_currentNotePage}/{_maxNotePage}";
-    }
-
-    public void PreviousNotePage()
-    {
-        if (_currentNotePage == 1)
-            return;
-        _currentNotePage--;
-        _noteContextTMP.pageToDisplay = _currentNotePage;
-        _notePagesTMP.text = $"{_currentNotePage}/{_maxNotePage}";
-    }
-
-    public void CloseNotePopup()
-    {
-        GameManager.Instance.IsPauseAllowed = true;
-        GameManager.Instance.IsPlayerInputEnabled = true;
-        GameManager.Instance.IsCursorVisible = false;
-        HidePopup("Notes", hasClosingAnimation: true, shouldDestroyGameObject: false);
-    }
-    #endregion
-
     public async Task LoadSceneWithFade(string sceneName, float fadeInTime, float fadeOutTime)
     {
         await DoFade(0, 1, fadeInTime);
