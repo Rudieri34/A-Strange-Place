@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7353587984482664149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5977900591015680033}
+  - component: {fileID: 4692363667890441413}
+  m_Layer: 0
+  m_Name: InventorySystemManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5977900591015680033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7353587984482664149}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.0162148, y: 8.213647, z: -15.007217}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4692363667890441413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7353587984482664149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8477c69e234b7be4cb45eafaa973a6ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dontDestroyOnLoad: 1
+  CompleteInventoryItemsList:
+  - ItemName: Key
+    ItemPrebab: {fileID: 6042023001898296796, guid: e1e1948838345b14097bde0d6a219065, type: 3}
+    ItemSpriteIcon: {fileID: 21300000, guid: 005888ede18a58e4db8d069cfa3007cb, type: 3}
+  - ItemName: Rock
+    ItemPrebab: {fileID: 4097859688178278230, guid: 2abbfd747cdbdda46a7a5465f67d0107, type: 3}
+    ItemSpriteIcon: {fileID: 21300000, guid: 3705f6c729514a94e801b9aa733931bd, type: 3}
+  - ItemName: Save
+    ItemPrebab: {fileID: 2021267757095196125, guid: 0007567e208c3254aaed37a7bf6f27a4, type: 3}
+    ItemSpriteIcon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  CurrentInventoryItems: []

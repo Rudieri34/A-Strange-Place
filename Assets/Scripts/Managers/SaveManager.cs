@@ -17,6 +17,43 @@ public class SaveManager : SingletonBase<SaveManager>
         get { LoadGame(); return _gameData.languageOption; }
         set { _gameData.languageOption = value; SaveGame(); }
     }
+    public Vector3 PlayerPosition
+    {
+        get { LoadGame(); return _gameData.playerPosition; }
+        set { _gameData.playerPosition = value; SaveGame(); }
+    }
+    public List<InventoryItem> InventoryItems
+    {
+        get { LoadGame(); return _gameData.inventoryItems; }
+        set { _gameData.inventoryItems = value; SaveGame(); }
+    }
+
+    public void SaveCollectables(List<CollectableItemData> collectables)
+    {
+        if (_gameData == null) LoadGame();
+
+        _gameData.collectables.Clear();
+        foreach (var item in collectables)
+        {
+            _gameData.collectables.Add(item);
+        }
+
+        SaveGame();
+    }
+
+    public void LoadCollectables(List<CollectableItemController> collectables)
+    {
+        if (_gameData == null || _gameData.collectables == null) return;
+
+        foreach (var item in collectables)
+        {
+            var saved = _gameData.collectables.Find(c => c.UniqueId == item.UniqueId);
+            if (saved != null)
+            {
+                item.LoadFromSaveData(saved);
+            }
+        }
+    }
 
     protected override void Awake()
     {
@@ -62,7 +99,7 @@ public class SaveManager : SingletonBase<SaveManager>
 
     public bool CheckIfSaveGameExists()
     {
-        return true;
+        return FileExists();
     }
 
     private bool FileExists() => File.Exists(_filePath);
@@ -74,7 +111,11 @@ public class SaveManager : SingletonBase<SaveManager>
             File.Delete(_filePath);
             _gameData = new GameData();
             SaveUpdated?.Invoke();
+            Debug.LogWarning("Save Data Cleared");
+
         }
+
+
     }
 
     public void OpenSaveFolder()
@@ -85,15 +126,22 @@ public class SaveManager : SingletonBase<SaveManager>
     }
 }
 
+
+
+
 [Serializable]
 public class GameData
 {
     public int languageOption;
-   
+    public Vector3 playerPosition;
+    public List<InventoryItem> inventoryItems;
+    public List<CollectableItemData> collectables;
 
     public GameData()
     {
         languageOption = 0;
-       
+        playerPosition = Vector3.zero;
+        inventoryItems = new List<InventoryItem>();
+        collectables = new List<CollectableItemData>();
     }
 }

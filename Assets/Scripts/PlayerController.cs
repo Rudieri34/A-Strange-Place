@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ThirdPersonPlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("References")]
     [Tooltip("Main Camera.")]
@@ -21,6 +21,8 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     void Start()
     {
+        if(SaveManager.Instance.CheckIfSaveGameExists())
+                transform.position =  SaveManager.Instance.PlayerPosition;
         if (_rb == null)
         {
             _rb = GetComponent<Rigidbody>();
@@ -48,6 +50,7 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     void Update()
     {
+        
         HandleInteraction();
         HandleAnimation();
     }
@@ -59,6 +62,9 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (GameManager.Instance.IsInventoryOpen)
+            return;
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         Vector3 inputDir = new Vector3(horizontal, 0f, vertical).normalized;
@@ -86,12 +92,16 @@ public class ThirdPersonPlayerController : MonoBehaviour
 
     private void HandleAnimation()
     {
-        bool isWalking = _currentSpeed > 0.1f;
+
+        bool isWalking = _currentSpeed > 0.1f && !GameManager.Instance.IsInventoryOpen;
         _animator.SetBool("Walking", isWalking);
     }
 
     private void HandleInteraction()
     {
+        if (GameManager.Instance.IsInventoryOpen)
+            return;
+
         if (Input.GetButtonDown("Interact"))
         {
             _animator.SetTrigger("Interact");

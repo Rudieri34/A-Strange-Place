@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4712795bf045abf49ad81b1b91e5a3cb, type: 3}
   m_Name: SFX
   m_EditorClassIdentifier: 
-  _audioType: 2
-  _audioList: []
+  _audioType: 1
+  _audioList:
+  - audioName: Type
+    audio: {fileID: 8300000, guid: f08b4215090116e4ba2e62382b944381, type: 3}
+    pitch: 1
+    volume: 0.5

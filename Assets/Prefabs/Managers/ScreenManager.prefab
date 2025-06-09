@@ -120,7 +120,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.8164943, y: 2.0528905, z: -5.156868}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5194124746341641026}
   - {fileID: 3970815942288282510}
@@ -144,25 +144,11 @@ MonoBehaviour:
   isShowingMessage: 0
   PopupsConfigs:
   - PrefabName: PauseMenuPopup
-    Prefab: {fileID: 1626515252465819198, guid: 4647c35b304abfd4d98fa9a89d90541c, type: 3}
-  - PrefabName: SettingsPopup
-    Prefab: {fileID: 1626515252465819198, guid: f621c4a0c8d1540468fe6ba883aab312, type: 3}
-  - PrefabName: InteractionPopup
-    Prefab: {fileID: 4777937106126748714, guid: 9a94d5ac681631e4f9795f944eb25d8d, type: 3}
-  - PrefabName: ControlsPopup
-    Prefab: {fileID: 9148401229576653051, guid: 5a13a483a0b03904aa09f44e265f5663, type: 3}
+    Prefab: {fileID: 4296712998917736493, guid: f157617b8427e4745b1e2db9f9c8caf5, type: 3}
+  - PrefabName: InventoryPopup
+    Prefab: {fileID: 8865092813794737803, guid: 5913f173325a9e54c81e52adf056ca04, type: 3}
   - PrefabName: LoadingPopup
     Prefab: {fileID: 2294233678844938220, guid: 29a97b294f1cd7b4e8dfb980656cd063, type: 3}
-  - PrefabName: MainMenuPopup
-    Prefab: {fileID: 4137899862226794741, guid: 3c35c74f9f5b3564394b2eba413a5366, type: 3}
-  - PrefabName: LetterPopup
-    Prefab: {fileID: 0}
-  - PrefabName: DeathPopup
-    Prefab: {fileID: 0}
-  - PrefabName: FinalPopup
-    Prefab: {fileID: 0}
-  - PrefabName: Objective
-    Prefab: {fileID: 0}
   currentOpenPopup: 
   ScenesConfigs:
   - SceneName: Canvas_HUD

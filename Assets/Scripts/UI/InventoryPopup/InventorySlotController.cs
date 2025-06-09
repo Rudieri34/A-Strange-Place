@@ -11,5 +11,7 @@ public class InventorySlotController : MonoBehaviour, IDropHandler
         GameObject dropped = eventData.pointerDrag;
         InventoryItemController itemController = dropped.GetComponent<InventoryItemController>();
         itemController.CurrentParent = transform;
+
+        InventorySystemManager.Instance.ChangeItemPositionOnList(itemController.Item, transform.GetSiblingIndex());
     }
 }

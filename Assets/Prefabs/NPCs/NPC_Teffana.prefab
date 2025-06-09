@@ -2709,8 +2709,8 @@ MonoBehaviour:
   dialogues:
   - Circulating Mam
   a: 0
-  _isShowingDialog: 0
-  _isShowingMessage: 0
+  IsShowingDialog: 0
+  IsShowingMessage: 0
 --- !u!114 &5177988574801733507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2728,7 +2728,7 @@ MonoBehaviour:
   _dialogController: {fileID: 1870496772789847350}
   _animator: {fileID: 8258344294897058677}
   _alwaysChat: 0
-  _chatOnDialogue: 0
+  _chatOnDialogue: 1
   _minWaitTime: 3
   _maxWaitTime: 10
   _patrolPositions:

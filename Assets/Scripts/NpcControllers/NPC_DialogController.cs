@@ -67,7 +67,7 @@ public class NPC_DialogController : MonoBehaviour
 
     void SetDialog()
     {
-        transform.LookAt(_player);
+        //transform.LookAt(_player);
         if (IsObjectNearby())
         {
             if (a >= dialogues.Length)

@@ -32,7 +32,7 @@ public class ScreenManager : SingletonBase<ScreenManager>
     [SerializeField] private GameObject _messageScreen;
     [SerializeField] private TMP_Text _messageText;
 
-  
+
     [Header("Fade")]
     [SerializeField] private Image _fade;
 
@@ -46,51 +46,27 @@ public class ScreenManager : SingletonBase<ScreenManager>
         currentOpenPopup = string.Empty;
     }
 
-    public GameObject ShowPopup(string name, bool openMultiple = false, bool hasOpeningAnimation = false, Action callingMethod = null, GameObject popupGameObject = null)
+    public GameObject ShowPopup(string name)
     {
-        if (OpenedPopups.FirstOrDefault(s => s.Key == name).Value != null && !openMultiple)
+        if (OpenedPopups.FirstOrDefault(s => s.Key == name).Value != null)
             return null;
 
         GameObject newPopup = null;
 
-        if (!popupGameObject)
-        {
-            newPopup = Instantiate(PopupsConfigs.First(s => s.PrefabName == name).Prefab);
-        }
-        else
-        {
-            newPopup = popupGameObject;
-            newPopup.SetActive(true);
-        }
+        newPopup = Instantiate(PopupsConfigs.First(s => s.PrefabName == name).Prefab);
 
         OpenedPopups.Add(new KeyValuePair<string, GameObject>(name, newPopup));
 
-        if (hasOpeningAnimation)
-            if (newPopup.TryGetComponent(out UIAnimation uiAnimation))
-                uiAnimation.PlayOpenAnimation();
-
-        callingMethod?.Invoke();
         currentOpenPopup = name;
         return newPopup;
     }
 
-    public void HidePopup(string name, bool hasClosingAnimation = false, Action callingMethod = null, bool shouldDestroyGameObject = true)
+    public void HidePopup(string name)
     {
         if (OpenedPopups.FirstOrDefault(s => s.Key == name).Value == null)
             return;
 
-        if (hasClosingAnimation)
-        {
-            if (OpenedPopups.FirstOrDefault(s => s.Key == name).Value.GetComponent<UIAnimation>())
-                OpenedPopups.FirstOrDefault(s => s.Key == name).Value.GetComponent<UIAnimation>().PlayCloseAnimation();
-        }
-        else
-        {
-            if(shouldDestroyGameObject)
-                Destroy(OpenedPopups.First(s => s.Key == name).Value);
-        }
-
-        callingMethod?.Invoke();
+        Destroy(OpenedPopups.First(s => s.Key == name).Value);
 
         OpenedPopups.Remove(OpenedPopups.First(s => s.Key == name));
         currentOpenPopup = string.Empty;
@@ -190,22 +166,7 @@ public class ScreenManager : SingletonBase<ScreenManager>
         isShowingMessage = false;
     }
     #endregion
-    public async Task LoadSceneWithFade(string sceneName, float fadeInTime, float fadeOutTime)
-    {
-        await DoFade(0, 1, fadeInTime);
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-        var taskCompletionSource = new TaskCompletionSource<bool>();
-        asyncLoad.completed += _ => taskCompletionSource.SetResult(true);
-        await taskCompletionSource.Task;
-        await DoFade(1, 0, fadeOutTime);
-        await Task.Delay(100);
-    }
 
-    public async Task DoFade(float startValue, float endValue, float duration)
-    {
-        _fade.color = new Color(_fade.color.r, _fade.color.g, _fade.color.b, startValue);
-        await _fade.DOFade(endValue, duration).AsyncWaitForCompletion();
-    }
 }
 
 [Serializable]

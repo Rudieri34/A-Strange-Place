@@ -32,16 +32,41 @@ public class GameManager : SingletonBase<GameManager>
 
             _isGamePaused = value;
             IsPlayerInputEnabled = !value;
-            IsCursorVisible = value;
+            IsCursorVisible = IsCursorVisible;
             OnPauseStateChanged?.Invoke(value);
 
             if (_isGamePaused)
             {
-                ScreenManager.Instance.ShowPopup("PauseMenuPopup", hasOpeningAnimation: true);
+                Time.timeScale = 0;
+                ScreenManager.Instance.ShowPopup("PauseMenuPopup");
             }
             else
             {
-                ScreenManager.Instance.HidePopup("PauseMenuPopup", hasClosingAnimation: true);
+                Time.timeScale = 1;
+                ScreenManager.Instance.HidePopup("PauseMenuPopup");
+            }
+        }
+    }
+
+
+    public bool IsInventoryOpen
+    {
+        get
+        {
+            return _isInventoryOpen;
+        }
+        set
+        {
+            _isInventoryOpen = value;
+            IsCursorVisible = IsCursorVisible;
+
+            if (_isInventoryOpen)
+            {
+                ScreenManager.Instance.ShowPopup("InventoryPopup");
+            }
+            else
+            {
+                ScreenManager.Instance.HidePopup("InventoryPopup");
             }
         }
     }
@@ -67,18 +92,21 @@ public class GameManager : SingletonBase<GameManager>
         }
         set
         {
-            Cursor.visible = value;
+            Cursor.visible = IsInventoryOpen || IsGamePaused;
         }
     }
 
     private bool _isPauseAllowed;
     private bool _isGamePaused;
     private bool _isPlayerInputEnabled;
+    private bool _isInventoryOpen;
 
     private void Start()
     {
         IsPlayerInputEnabled = true;
         IsGamePaused = false;
+        _isPauseAllowed = true;
+        IsCursorVisible = IsCursorVisible;
     }
 
     private void Update()
@@ -87,9 +115,12 @@ public class GameManager : SingletonBase<GameManager>
             TogglePause();
 
         if (Input.GetButtonDown("Inventory"))
-            ScreenManager.Instance.ShowPopup("InventoryPopup");
-    }
+            ToggleInventory();
 
+        if (Input.GetKeyDown(KeyCode.P))
+            SaveManager.Instance.ClearSaveData();
+    }
+    public void ToggleInventory() => IsInventoryOpen = !IsInventoryOpen;
     public void TogglePause() => IsGamePaused = !IsGamePaused;
     public void TogglePlayerInput() => IsPlayerInputEnabled = !IsPlayerInputEnabled;
     public void ToggleIsCursorVisible() => IsCursorVisible = !IsCursorVisible;
