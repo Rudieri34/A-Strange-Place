@@ -31,10 +31,7 @@ public class CollectableItemController : MonoBehaviour
 
     Vector3 _lastPosition;
 
-    private void Awake()
-    {
-        _lastPosition = transform.position;
-    }
+
     public void SetUniqueId(string id) => UniqueId = id;
     public CollectableItemData GetSaveData()
     {
@@ -61,6 +58,9 @@ public class CollectableItemController : MonoBehaviour
     private void Update()
     {
         ToggleMessage();
+
+        if (transform.position != _lastPosition)
+            _lastPosition = transform.position;
 
         if (Input.GetButtonDown("Interact"))
         {
@@ -107,7 +107,7 @@ public class CollectableItemController : MonoBehaviour
     private bool IsObjectNearby()
     {
 
-        if (Vector3.Distance(_player.transform.position, transform.position) < 1.5F)
+        if (Vector3.Distance(_player.transform.position, transform.position) < 1.8F)
         {
             return true;
         }

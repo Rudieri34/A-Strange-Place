@@ -48,6 +48,7 @@ public class InventoryPopupController : MonoBehaviour
 
     void OnDestroy()
     {
-        InventorySystemManager.Instance.InventoryUpdated -= SetupinventoryPopup;
+        if (InventorySystemManager.Instance != null)
+            InventorySystemManager.Instance.InventoryUpdated -= SetupinventoryPopup;
     }
 }

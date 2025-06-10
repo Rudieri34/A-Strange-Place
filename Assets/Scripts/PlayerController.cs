@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        if(SaveManager.Instance.CheckIfSaveGameExists())
-                transform.position =  SaveManager.Instance.PlayerPosition;
         if (_rb == null)
         {
             _rb = GetComponent<Rigidbody>();
@@ -34,8 +32,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-        _rb.interpolation = RigidbodyInterpolation.Interpolate;
+       // _rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+       // _rb.interpolation = RigidbodyInterpolation.Interpolate;
 
         if (_cameraTransform == null)
         {
@@ -46,6 +44,10 @@ public class PlayerController : MonoBehaviour
                 enabled = false;
             }
         }
+
+        if (SaveManager.Instance.CheckIfSaveGameExists())
+            transform.position = SaveManager.Instance.PlayerPosition;
+
     }
 
     void Update()

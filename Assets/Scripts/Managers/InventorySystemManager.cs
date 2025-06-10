@@ -55,7 +55,7 @@ public class InventorySystemManager : SingletonBase<InventorySystemManager>
 
     private List<CollectableItemController> _allCollectables = new List<CollectableItemController>();
 
-    private void Start()
+    private void OnEnable()
     {
         _allCollectables = FindObjectsByType<CollectableItemController>(FindObjectsSortMode.None).ToList();
 
@@ -184,6 +184,7 @@ public class InventorySystemManager : SingletonBase<InventorySystemManager>
         if (controller != null)
         {
             controller.SetUniqueId(item.UniqueId);
+            UpdateCollectableReference(controller);
         }
         InventoryUpdated?.Invoke();
     }
@@ -201,8 +202,27 @@ public class InventorySystemManager : SingletonBase<InventorySystemManager>
         if (controller != null)
         {
             controller.SetUniqueId(item.UniqueId);
+            UpdateCollectableReference(controller);
         }
         InventoryUpdated?.Invoke();
+    }
+
+    public void UpdateCollectableReference(CollectableItemController newInstance)
+    {
+        if (string.IsNullOrEmpty(newInstance.UniqueId))
+            return;
+
+        for (int i = 0; i < _allCollectables.Count; i++)
+        {
+            if (_allCollectables[i].UniqueId == newInstance.UniqueId)
+            {
+                _allCollectables[i] = newInstance;
+                Debug.Log($"Updated reference for Collectable {newInstance.UniqueId}");
+                return;
+            }
+        }
+
+        Debug.LogWarning($"Tried to update collectable with ID {newInstance.UniqueId}, but no match found.");
     }
 
     private void WriteSave()
