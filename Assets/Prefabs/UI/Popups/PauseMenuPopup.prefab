@@ -112,7 +112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6872529306563738847}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PauseMenuPopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
